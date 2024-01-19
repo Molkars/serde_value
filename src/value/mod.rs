@@ -5,21 +5,36 @@ mod number;
 use std::collections::BTreeMap;
 pub use number::Number;
 
+/// An intermediate value
 #[derive(Clone, Ord, PartialOrd, Eq, PartialEq, Hash)]
 pub enum Value {
+    /// A unit value: ()
     Unit,
+    /// A boolean value
     Bool(bool),
+    /// A character value
     Char(char),
+    /// A numeric value
     Number(Number),
+    /// A string value
     String(String),
+    /// A collection of values
     Seq(Vec<Value>),
+    /// A map of values
     Map(BTreeMap<Value, Value>),
+    /// A tuple of values
     Tuple(Vec<Value>),
+    /// A struct with no fields
     UnitStruct(UnitStruct),
+    /// A struct with unnamed fields
     TupleStruct(TupleStruct),
+    /// A struct with named fields
     NamedStruct(NamedStruct),
+    /// An enum variant with no fields
     UnitVariant(UnitVariant),
+    /// An enum variant with unnamed fields
     TupleVariant(TupleVariant),
+    /// An enum variant with named fields
     NamedVariant(NamedVariant),
 }
 

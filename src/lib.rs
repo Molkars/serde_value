@@ -1,3 +1,34 @@
+//! # Serde Value
+//! serde_value is a simple intermediate-value library built on serde serialization
+//!
+//! # Example
+//! ```
+//! use serde_derive::{Serialize};
+//!
+//! #[derive(Serialize, Debug)]
+//! pub struct MyData {
+//!     a: MyEnum,
+//!     b: MyEnum,
+//!     c: MyEnum,
+//! }
+//!
+//! #[derive(Serialize, Debug)]
+//! pub enum MyEnum {
+//!     A(u32),
+//!     B { val: String },
+//!     C,
+//! }
+//!
+//! let value = MyData {
+//!     a: MyEnum::A(1),
+//!     b: MyEnum::B { val: "hi".to_string() },
+//!     c: MyEnum::C
+//! };
+//!
+//! let value = serde_value::to_value(&value).unwrap();
+//! println!("{:?}", value);
+//! ```
+
 use serde::Serialize;
 use crate::ser::{Error, Serializer};
 
@@ -6,6 +37,7 @@ mod value;
 
 pub use value::*;
 
+/// Convert `value` to an intermediate `Value`
 pub fn to_value<T: Serialize>(value: &T) -> Result<Value, Error> {
     value.serialize(&mut Serializer)
 }

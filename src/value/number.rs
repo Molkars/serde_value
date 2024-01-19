@@ -2,6 +2,7 @@ use std::hash::{Hash, Hasher};
 use std::cmp::Ordering;
 use std::fmt::{Debug, Formatter};
 
+/// A numeric value wrapper, supports u8-u128, i8-i128, f32, & f64
 #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Hash)]
 pub enum Number {
     U8(u8),

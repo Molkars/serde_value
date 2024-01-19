@@ -3,6 +3,7 @@ use std::fmt::{Debug, Display, Formatter};
 use serde::{ser, Serialize};
 use crate::value::{NamedStruct, NamedVariant, TupleStruct, TupleVariant, UnitStruct, UnitVariant, Value};
 
+/// The default serializer for intermediate values
 pub struct Serializer;
 
 #[derive(Debug)]
