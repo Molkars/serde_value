@@ -143,7 +143,7 @@ impl<'a> ser::Serializer for &'a mut Serializer {
         Ok(Value::TupleVariant(TupleVariant {
             name,
             variant,
-            values: vec![value.serialize(&mut *self)?]
+            values: vec![value.serialize(&mut *self)?],
         }))
     }
 

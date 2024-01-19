@@ -1,9 +1,10 @@
 use serde::Serialize;
 use crate::ser::{Error, Serializer};
-use crate::value::Value;
 
 pub mod ser;
-pub mod value;
+mod value;
+
+pub use value::*;
 
 pub fn to_value<T: Serialize>(value: &T) -> Result<Value, Error> {
     value.serialize(&mut Serializer)
