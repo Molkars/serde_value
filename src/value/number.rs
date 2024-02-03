@@ -1,6 +1,7 @@
 use std::hash::{Hash, Hasher};
 use std::cmp::Ordering;
-use std::fmt::{Debug, Formatter};
+use std::fmt::{Debug, Display, Formatter};
+use std::ops::Deref;
 
 /// A numeric value wrapper, supports u8-u128, i8-i128, f32, & f64
 #[derive(Copy, Clone, Ord, PartialOrd, Eq, PartialEq, Hash)]
@@ -122,6 +123,12 @@ macro_rules! float_ty {
         impl Ord for $ty {
             fn cmp(&self, other: &Self) -> Ordering {
                 self.0.total_cmp(&other.0)
+            }
+        }
+
+        impl Display for $ty {
+            fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+                write!(f, "{}", self.0)
             }
         }
     };
@@ -381,6 +388,25 @@ impl Debug for Number {
             Number::I128(val) => write!(f, "{val}i128"),
             Number::F32(val) => write!(f, "{}f32", val.0),
             Number::F64(val) => write!(f, "{}f64", val.0),
+        }
+    }
+}
+
+impl Display for Number {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Number::U8(v) => write!(f, "{v}"),
+            Number::U16(v) => write!(f, "{v}"),
+            Number::U32(v) => write!(f, "{v}"),
+            Number::U64(v) => write!(f, "{v}"),
+            Number::U128(v) => write!(f, "{v}"),
+            Number::I8(v) => write!(f, "{v}"),
+            Number::I16(v) => write!(f, "{v}"),
+            Number::I32(v) => write!(f, "{v}"),
+            Number::I64(v) => write!(f, "{v}"),
+            Number::I128(v) => write!(f, "{v}"),
+            Number::F32(v) => write!(f, "{}", v.0),
+            Number::F64(v) => write!(f, "{}", v.0),
         }
     }
 }
